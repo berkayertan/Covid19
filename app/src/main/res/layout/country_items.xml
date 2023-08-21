@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/countryText"
@@ -26,7 +27,36 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.022" />
+            app:layout_constraintVertical_bias="0.022"
+
+            />
+        <TextView
+            android:id="@+id/testNumberText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirmed Tests"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_marginStart="15dp"/>
+
+        <TextView
+            android:id="@+id/caseText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cases"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_marginStart="15dp"/>
+
+        <TextView
+            android:id="@+id/deathText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Death Number"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_marginStart="15dp"/>
+
 
     </LinearLayout>
 
