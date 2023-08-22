@@ -1,5 +1,6 @@
 package com.example.covid19.View
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.SearchView
@@ -35,8 +36,10 @@ class MainActivity : AppCompatActivity() {
 
         swipeRefreshLayout.setOnRefreshListener {
             // Refresh data here
-            viewModel.getDataFromAPI()
-            swipeRefreshLayout.isRefreshing = false // Stop the refreshing animation
+            val intent = Intent(this,DetailActivity::class.java)
+            startActivity(intent)
+            //viewModel.getDataFromAPI()
+           // swipeRefreshLayout.isRefreshing = false // Stop the refreshing animation
         }
 
         viewModel.getDataFromAPI()
