@@ -3,17 +3,17 @@ package com.example.covid19.Adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.covid19.Model.CountryData
+import com.example.covid19.Model.Response
 import com.example.covid19.databinding.CountryItemsBinding
 
 class CountryAdapter : RecyclerView.Adapter<CountryAdapter.ViewHolder>() {
 
+    private val combinedDataList = mutableListOf<Pair<String, Response?>>()
 
-    private val countryList = mutableListOf<String>()
-
-
-    fun setData(data: List<String>) {
-        countryList.clear()
-        countryList.addAll(data)
+    fun setData(data: List<Pair<String, Response>>) {
+        combinedDataList.clear()
+        combinedDataList.addAll(data)
         notifyDataSetChanged()
     }
 
@@ -24,21 +24,27 @@ class CountryAdapter : RecyclerView.Adapter<CountryAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val countryName = countryList[position]
+        val countryName = combinedDataList[position]
         holder.bind(countryName)
     }
 
     override fun getItemCount(): Int {
-        return countryList.size
+        return combinedDataList.size
     }
 
     class ViewHolder(private val binding: CountryItemsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(country: String) {
+
+        fun bind(combinedData: Pair<String, Response?>) {
+            val (country, dailyResponse) = combinedData
             binding.apply {
                 countryText.text = country
+                if (dailyResponse != null) {
+                    caseText.text = dailyResponse.cases.new?: "0"
+                    deathText.text = dailyResponse.deaths.new ?: "0"
+                    testNumberText.text = dailyResponse.tests.total.toString()
+                }
             }
         }
     }
-
 }

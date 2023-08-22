@@ -14,12 +14,10 @@ import java.util.Locale
 
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: ApiViewModel
     private lateinit var countryAdapter: CountryAdapter
     private lateinit var searchView: SearchView
-    private lateinit var countryList: List<String>
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,9 +40,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.getDataFromAPI()
-        viewModel.countries.observe(this) { countries ->
-            countryList = countries // Update the countryList
-            countryAdapter.setData(countries)
+
+
+        viewModel.combinedData.observe(this) { combinedDataList ->
+            countryAdapter.setData(combinedDataList)
         }
 
         searchView = binding.searchView
@@ -55,14 +54,14 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 val searchText = newText?.lowercase(Locale.getDefault())
-                val filteredCountries = if (searchText.isNullOrEmpty()) {
-                    countryList
+                val filteredData = if (searchText.isNullOrEmpty()) {
+                    viewModel.combinedData.value ?: emptyList()
                 } else {
-                    countryList.filter {
-                        it.lowercase(Locale.getDefault()).contains(searchText)
-                    }
+                    viewModel.combinedData.value?.filter { (country, _) ->
+                        country.lowercase(Locale.getDefault()).contains(searchText)
+                    } ?: emptyList()
                 }
-                countryAdapter.setData(filteredCountries)
+                countryAdapter.setData(filteredData)
                 return true
             }
         })

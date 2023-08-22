@@ -1,7 +1,7 @@
 package com.example.covid19.Service
 
-import android.database.Observable
 import com.example.covid19.Model.CountryData
+import com.example.covid19.Model.DailyData
 import io.reactivex.Single
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -32,5 +32,9 @@ class Countries {
 
     fun getData(): Single<CountryData> {
         return api.getCountries()
+    }
+
+    fun getDailyStatistics(): Single<DailyData> {
+        return api.getStatistics()
     }
 }
