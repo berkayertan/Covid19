@@ -2,6 +2,7 @@ package com.example.covid19.Service
 
 import com.example.covid19.Model.CountryData
 import com.example.covid19.Model.DailyData
+import com.example.covid19.Model.Response
 import io.reactivex.Single
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -39,5 +40,8 @@ class Countries {
     }
     fun getDailyHistory(selectedDate: String): Single<DailyData> {
         return api.getHistory(selectedDate)
+    }
+    fun getDetailedData(country: String): Single<Response> {
+        return api.getDetailedData(country)
     }
     }

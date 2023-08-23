@@ -43,10 +43,8 @@ class MainActivity : AppCompatActivity() {
 
         swipeRefreshLayout.setOnRefreshListener {
             // Refresh data here
-            val intent = Intent(this,DetailActivity::class.java)
-            startActivity(intent)
-            // viewModel.getDataFromAPI()
-           // swipeRefreshLayout.isRefreshing = false // Stop the refreshing animation
+             viewModel.getDataFromAPI()
+             swipeRefreshLayout.isRefreshing = false // Stop the refreshing animation
         }
 
         viewModel.getDataFromAPI()

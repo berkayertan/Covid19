@@ -2,6 +2,7 @@
 
     import android.app.DatePickerDialog
     import android.content.Context
+    import android.content.Intent
     import android.util.Log
     import android.widget.TextView
     import androidx.lifecycle.MutableLiveData
@@ -18,8 +19,10 @@
 
     class ApiViewModel : ViewModel() {
 
+        private val TAG = "ApiViewModel"
         private val countriesService = Countries()
         private val disposable = CompositeDisposable()
+        val detailedData = MutableLiveData<Response>()
 
         val combinedData = MutableLiveData<List<Pair<String, Response>>>() // Use Pair to hold country name and response
         val historyList = MutableLiveData<List<String>>()
@@ -46,6 +49,20 @@
                         val historyList = dailyData.response.map { it.day }
                         this.historyList.value = historyList // Update LiveData with history data
                     }, { error ->
+                        error.printStackTrace()
+                    })
+            )
+        }
+
+        fun fetchDetailedDataForCountry(country: String) {
+            disposable.add(
+                countriesService.getDetailedData(country)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ detailedResponse ->
+                        detailedData.value = detailedResponse
+                    }, { error ->
+                        Log.e(TAG, "Error fetching detailed data for $country: ${error.message}")
                         error.printStackTrace()
                     })
             )
@@ -94,6 +111,29 @@
 
             datePickerDialog.show()
         }
+        fun shareDetails(context: Context, response: Response) {
+            val stringBuilder = StringBuilder()
+
+            // Append the text from each property to the StringBuilder
+            stringBuilder.append("Country: ${response.country}\n")
+            response.cases?.let { cases ->
+                stringBuilder.append("Cases: ${cases.new}\n")
+            }
+            response.deaths?.let { deaths ->
+                stringBuilder.append("Deaths: ${deaths.total}\n")
+            }
+            response.tests?.let { tests ->
+                stringBuilder.append("Tests: ${tests.total}\n")
+            }
+
+            val detailsText = stringBuilder.toString()
+
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_TEXT, detailsText)
+            context.startActivity(Intent.createChooser(intent, "Share Details"))
+        }
+
 
         override fun onCleared() {
             super.onCleared()
