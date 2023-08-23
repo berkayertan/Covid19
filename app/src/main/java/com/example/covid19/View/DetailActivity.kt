@@ -7,15 +7,22 @@ import android.view.Menu
 import android.view.MenuItem
 import com.example.covid19.Model.Response
 import com.example.covid19.R
+import com.example.covid19.ViewModel.ApiViewModel
 import com.example.covid19.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
+    private lateinit var viewModel: ApiViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityDetailBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+
+        val countryName = intent.getStringExtra("countryName")
+        binding.countryName.text = countryName ?: "Country Name Not Available"
+
 
         binding.historyButton.setOnClickListener {
             val intent = Intent(this,HistoryActivity::class.java)

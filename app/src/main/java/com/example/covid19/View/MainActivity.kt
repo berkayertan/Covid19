@@ -27,11 +27,18 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+
+        countryAdapter = CountryAdapter { countryName ->
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra("countryName", countryName)
+            startActivity(intent)
+        }
+
+
         viewModel = ViewModelProvider(this).get(ApiViewModel::class.java)
 
         swipeRefreshLayout = binding.swipeRefresh
         binding.countryRecyclerView.layoutManager = LinearLayoutManager(this)
-        countryAdapter = CountryAdapter()
         binding.countryRecyclerView.adapter = countryAdapter
 
         swipeRefreshLayout.setOnRefreshListener {

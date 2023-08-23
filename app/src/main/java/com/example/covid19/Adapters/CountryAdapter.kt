@@ -1,13 +1,16 @@
 package com.example.covid19.Adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.covid19.Model.CountryData
 import com.example.covid19.Model.Response
+import com.example.covid19.View.DetailActivity
 import com.example.covid19.databinding.CountryItemsBinding
 
-class CountryAdapter : RecyclerView.Adapter<CountryAdapter.ViewHolder>() {
+class CountryAdapter(private val onItemClick: (String) -> Unit): RecyclerView.Adapter<CountryAdapter.ViewHolder>() {
 
     private val combinedDataList = mutableListOf<Pair<String, Response?>>()
 
@@ -26,6 +29,9 @@ class CountryAdapter : RecyclerView.Adapter<CountryAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val countryName = combinedDataList[position]
         holder.bind(countryName)
+        holder.itemView.setOnClickListener {
+            onItemClick(countryName.first)
+        }
     }
 
     override fun getItemCount(): Int {
