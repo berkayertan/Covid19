@@ -6,4 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".View.HistoryActivity">
 
+    <TextView
+        android:id="@+id/dateEditText"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="276dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="7dp"
+        android:text="Tarih ve Saat Seçiniz"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        app:drawableEndCompat="@drawable/calendar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Get Details"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateEditText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

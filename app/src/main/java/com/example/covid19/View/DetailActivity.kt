@@ -49,7 +49,6 @@ class DetailActivity : AppCompatActivity() {
 
         }
     }
-
     private fun shareDetails() {
         val stringBuilder = StringBuilder()
 
@@ -71,5 +70,6 @@ class DetailActivity : AppCompatActivity() {
         intent.putExtra(Intent.EXTRA_TEXT, detailsText)
         startActivity(Intent.createChooser(intent, "Share Details"))
     }
+
 }
 

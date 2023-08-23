@@ -37,4 +37,7 @@ class Countries {
     fun getDailyStatistics(): Single<DailyData> {
         return api.getStatistics()
     }
-}
+    fun getDailyHistory(selectedDate: String): Single<DailyData> {
+        return api.getHistory(selectedDate)
+    }
+    }

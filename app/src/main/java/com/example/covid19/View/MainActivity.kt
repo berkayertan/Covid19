@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             // Refresh data here
             val intent = Intent(this,DetailActivity::class.java)
             startActivity(intent)
-            //viewModel.getDataFromAPI()
+            // viewModel.getDataFromAPI()
            // swipeRefreshLayout.isRefreshing = false // Stop the refreshing animation
         }
 
